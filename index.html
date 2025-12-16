@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Germani Terzi | Vini d'Autore Oltrepò</title>
+    <meta name="description" content="Germani Terzi. Dr Blues e Silvis: l'eccellenza dell'Oltrepò Pavese in una veste moderna.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Manrope:wght@200;400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            wine: '#5D1822',   /* Bordeaux Profondo */
+                            black: '#0a0a0a',  /* Nero Assoluto */
+                            gold: '#D4AF37',   /* Oro Metallico */
+                            sand: '#F3EFE8',   /* Sabbia Chiaro */
+                            stone: '#1c1917'   /* Pietra Scura */
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Cinzel', 'serif'],
+                        body: ['Manrope', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero': "url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                        'jazz': "url('https://images.unsplash.com/photo-1514525253440-b393452e8d26?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                        'wolf': "url('https://images.unsplash.com/photo-1474511320723-9a56873867b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                        'oltrepo': "url('https://images.unsplash.com/photo-1625505826533-5c80aca7d157?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth Reveal Animation Class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="font-body text-brand-black bg-brand-sand antialiased overflow-x-hidden selection:bg-brand-gold selection:text-white">
+
+    <div id="age-gate" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center transition-all duration-700">
+        <div class="text-center p-8 max-w-lg border-y border-brand-gold/30 w-full mx-4">
+            <h1 class="font-display text-4xl text-white mb-2 tracking-widest">GERMANI TERZI</h1>
+            <p class="text-brand-gold text-sm tracking-[0.3em] uppercase mb-8">Oltrepò Pavese</p>
+            <p class="text-gray-400 font-light mb-8">L'accesso è riservato a chi ha l'età legale per il consumo di alcolici.</p>
+            <button onclick="enterSite()" class="group relative px-8 py-3 bg-transparent overflow-hidden border border-brand-gold text-brand-gold hover:text-black transition-colors duration-300">
+                <span class="absolute inset-0 w-full h-full bg-brand-gold/0 group-hover:bg-brand-gold transition-all duration-300"></span>
+                <span class="relative font-bold uppercase tracking-widest text-xs z-10">Entra nel Sito</span>
+            </button>
+        </div>
+    </div>
+
+    <nav class="fixed w-full z-40 top-0 left-0 transition-all duration-300 p-4 lg:p-6" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center bg-black/80 backdrop-blur-md text-white px-6 py-4 rounded-full border border-white/10 shadow-2xl">
+            <a href="#" class="font-display text-2xl font-bold tracking-wide flex items-center gap-2">
+                <span class="text-brand-gold">GT</span>
+                <span class="hidden md:inline text-sm tracking-[0.2em] font-light opacity-80">GERMANI TERZI</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-widest">
+                <a href="#vini" class="hover:text-brand-gold transition-colors">Collezione</a>
+                <a href="#territorio" class="hover:text-brand-gold transition-colors">Territorio</a>
+                <a href="#experience" class="hover:text-brand-gold transition-colors">Esperienze</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="#contact" class="hidden md:block bg-brand-gold text-black px-5 py-2 rounded-full text-xs font-bold uppercase hover:bg-white transition-colors">Contatti</a>
+                <button onclick="toggleMenu()" class="md:hidden text-2xl"><i class="ph ph-list"></i></button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="fixed inset-0 bg-brand-black z-[-1] hidden flex-col items-center justify-center space-y-8 opacity-0 transition-opacity duration-300 pt-20">
+            <a href="#vini" onclick="toggleMenu()" class="font-display text-3xl text-white hover:text-brand-gold">I Vini</a>
+            <a href="#territorio" onclick="toggleMenu()" class="font-display text-3xl text-white hover:text-brand-gold">Oltrepò</a>
+            <a href="#experience" onclick="toggleMenu()" class="font-display text-3xl text-white hover:text-brand-gold">Visite</a>
+        </div>
+    </nav>
+
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-hero bg-cover bg-center scale-110 transition-transform duration-[10s] hover:scale-100 ease-linear"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-brand-black"></div>
+        
+        <div class="relative z-10 text-center px-6 max-w-5xl reveal active">
+            <div class="inline-block border border-white/30 px-4 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-white/80 mb-6 backdrop-blur-sm">
+                Vini d'Autore • Italia
+            </div>
+            <h1 class="font-display text-5xl md:text-7xl lg:text-9xl text-white mb-6 leading-none">
+                Germani<br><span class="text-brand-gold italic font-serif pr-2">Terzi</span>
+            </h1>
+            <p class="text-gray-300 text-sm md:text-lg max-w-xl mx-auto font-light leading-relaxed mb-10">
+                Dove l'anima jazz del Pinot Nero incontra l'istinto selvaggio della riserva. Un racconto liquido dall'Oltrepò Pavese.
+            </p>
+            
+            <div class="flex flex-col items-center gap-2">
+                <span class="text-white/50 text-[10px] uppercase tracking-widest">Scorri per scoprire</span>
+                <div class="w-px h-16 bg-gradient-to-b from-brand-gold to-transparent"></div>
+            </div>
+        </div>
+    </header>
+
+    <section id="vini" class="bg-brand-black">
+        
+        <div class="relative min-h-screen flex flex-col md:flex-row">
+            <div class="md:w-1/2 relative min-h-[50vh] md:min-h-screen overflow-hidden group">
+                <div class="absolute inset-0 bg-jazz bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"></div>
+                <div class="absolute inset-0 bg-brand-wine/80 mix-blend-multiply"></div>
+                <div class="absolute bottom-10 left-10 text-white z-10">
+                    <i class="ph ph-music-note-simple text-5xl opacity-50 mb-4"></i>
+                    <h3 class="font-display text-6xl text-white/10 absolute -top-20 -left-10 select-none">JAZZ</h3>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 bg-brand-stone text-white flex items-center justify-center p-8 md:p-20 relative z-10">
+                <div class="max-w-md reveal">
+                    <span class="text-brand-wine font-bold text-sm tracking-widest uppercase mb-2 block">Pinot Nero</span>
+                    <h2 class="font-display text-5xl md:text-6xl mb-6 text-white">Dr. Blues</h2>
+                    <p class="text-gray-400 leading-relaxed mb-8 border-l-2 border-brand-wine pl-6">
+                        Un Pinot Nero dedicato all'anima giovane e vibrante. Come un assolo di sax su uno sfondo burgundy, questo vino sorprende per ritmo e freschezza. Note speziate danzano con frutti rossi in un equilibrio perfetto.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-10">
+                        <div>
+                            <span class="block text-xs text-gray-500 uppercase">Etichetta</span>
+                            <span class="text-white font-display text-lg">Jazzista</span>
+                        </div>
+                        <div>
+                            <span class="block text-xs text-gray-500 uppercase">Colore</span>
+                            <span class="text-brand-wine font-display text-lg">Burgundy</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="inline-flex items-center gap-2 text-brand-gold border-b border-brand-gold pb-1 uppercase text-xs font-bold tracking-widest hover:text-white hover:border-white transition-all">
+                        Scheda Tecnica <i class="ph ph-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative min-h-screen flex flex-col md:flex-row-reverse">
+            <div class="md:w-1/2 relative min-h-[50vh] md:min-h-screen overflow-hidden group">
+                <div class="absolute inset-0 bg-wolf bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 grayscale"></div>
+                <div class="absolute inset-0 bg-black/60"></div>
+                <div class="absolute bottom-10 right-10 text-white z-10 text-right">
+                    <i class="ph ph-moon-stars text-5xl opacity-50 mb-4"></i>
+                    <h3 class="font-display text-6xl text-white/10 absolute -top-20 -right-10 select-none">WILD</h3>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 bg-brand-black text-white flex items-center justify-center p-8 md:p-20 relative z-10 border-t md:border-t-0 border-white/5">
+                <div class="max-w-md reveal">
+                    <span class="text-gray-500 font-bold text-sm tracking-widest uppercase mb-2 block">Rosso Barricato</span>
+                    <h2 class="font-display text-5xl md:text-6xl mb-6 text-white">Silvis</h2>
+                    <p class="text-gray-400 leading-relaxed mb-8 border-l-2 border-brand-gold pl-6">
+                        Il volto del lupo emerge dal buio. Silvis è un rosso barricato che non chiede permesso. Strutturato, profondo, austero. L'affinamento in legno doma la sua natura selvaggia rendendolo elegante e indimenticabile.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-10">
+                        <div>
+                            <span class="block text-xs text-gray-500 uppercase">Etichetta</span>
+                            <span class="text-white font-display text-lg">Lupo B/N</span>
+                        </div>
+                        <div>
+                            <span class="block text-xs text-gray-500 uppercase">Carattere</span>
+                            <span class="text-white font-display text-lg">Barricato</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="inline-flex items-center gap-2 text-brand-gold border-b border-brand-gold pb-1 uppercase text-xs font-bold tracking-widest hover:text-white hover:border-white transition-all">
+                        Scheda Tecnica <i class="ph ph-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="territorio" class="relative py-32 flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-oltrepo bg-cover bg-fixed bg-center"></div>
+        <div class="absolute inset-0 bg-white/90"></div>
+        
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <span class="text-brand-black font-bold uppercase tracking-[0.3em] text-xs mb-4 block reveal">Coordinate 45° N</span>
+            <h2 class="font-display text-5xl md:text-7xl text-brand-black mb-8 reveal">Oltrepò Pavese</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mt-12">
+                <div class="p-8 bg-white border border-gray-100 shadow-xl reveal delay-100 hover:-translate-y-2 transition-transform">
+                    <i class="ph ph-mountains text-4xl text-brand-wine mb-4"></i>
+                    <h4 class="font-display text-xl mb-2">Il Terroir</h4>
+                    <p class="text-gray-500 text-sm">Terreni calcareo-argillosi che donano ai nostri vini una mineralità unica e una struttura longeva.</p>
+                </div>
+                <div class="p-8 bg-white border border-gray-100 shadow-xl reveal delay-200 hover:-translate-y-2 transition-transform">
+                    <i class="ph ph-sun text-4xl text-brand-gold mb-4"></i>
+                    <h4 class="font-display text-xl mb-2">Il Clima</h4>
+                    <p class="text-gray-500 text-sm">L'escursione termica tra giorno e notte favorisce lo sviluppo degli aromi nel Pinot Nero.</p>
+                </div>
+                <div class="p-8 bg-white border border-gray-100 shadow-xl reveal delay-300 hover:-translate-y-2 transition-transform">
+                    <i class="ph ph-hand-heart text-4xl text-brand-black mb-4"></i>
+                    <h4 class="font-display text-xl mb-2">La Cura</h4>
+                    <p class="text-gray-500 text-sm">Ogni grappolo è selezionato a mano. Rispettiamo la terra per ottenere vini sinceri.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-brand-black text-white pt-24 pb-12 border-t border-white/10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-20">
+                <div class="max-w-md">
+                    <h2 class="font-display text-4xl mb-6">Resta in contatto</h2>
+                    <p class="text-gray-400 mb-8 font-light">Iscriviti alla newsletter per anteprime sulle nuove annate di Dr Blues e Silvis.</p>
+                    <form class="flex border-b border-gray-700 pb-2">
+                        <input type="email" placeholder="La tua email" class="bg-transparent w-full outline-none text-white placeholder-gray-600">
+                        <button class="text-brand-gold uppercase font-bold text-xs tracking-widest hover:text-white transition-colors">Iscriviti</button>
+                    </form>
+                </div>
+                
+                <div class="flex flex-col md:items-end gap-6 text-right">
+                    <div class="font-display text-2xl">Germani Terzi</div>
+                    <div class="text-gray-500 text-sm leading-relaxed">
+                        Strada dei Vigneti, Oltrepò Pavese<br>
+                        Pavia, Italia<br>
+                        <a href="mailto:info@germaniterzi.it" class="text-white hover:text-brand-gold transition-colors">info@germaniterzi.it</a>
+                    </div>
+                    <div class="flex gap-4 mt-2">
+                        <a href="#" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:bg-white hover:text-black transition-all"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center hover:bg-white hover:text-black transition-all"><i class="ph ph-facebook-logo"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs text-gray-700 uppercase tracking-widest pt-8 border-t border-white/5">
+                <p>&copy; 2024 Germani Terzi</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy</a>
+                    <a href="#" class="hover:text-white">Credits</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Age Gate Logic
+        function enterSite() {
+            const gate = document.getElementById('age-gate');
+            const body = document.body;
+            gate.style.opacity = '0';
+            setTimeout(() => {
+                gate.style.display = 'none';
+                body.style.overflow = 'auto'; // Re-enable scroll
+            }, 700);
+        }
+
+        // Mobile Menu
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                setTimeout(() => {
+                    menu.classList.remove('opacity-0');
+                    menu.classList.add('z-30');
+                }, 10);
+            } else {
+                menu.classList.add('opacity-0');
+                menu.classList.remove('z-30');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Scroll Reveal Animation Script
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>
