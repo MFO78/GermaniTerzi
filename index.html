@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Germani Terzi | Vini d'Autore Oltrepò</title>
-    <meta name="description" content="Germani Terzi. Dr Blues e Silvis: l'eccellenza dell'Oltrepò Pavese in una veste moderna.">
+    <meta name="description" content="Germani Terzi. Dr Blues e Silvis: l'eccellenza dell'Oltrepò Pavese.">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,13 +24,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            wine: '#722F37',   /* Burgundy */
+                            wine: '#722F37',   
                             wineDark: '#4a1a21',
-                            black: '#050505',  /* Nero profondo */
-                            gold: '#C5A059',   /* Oro classico */
-                            goldLight: '#E5C585',
-                            silver: '#C0C0C0', /* Argento per Silvis */
-                            sand: '#F5F2EB',   /* Sabbia per sfondi chiari */
+                            black: '#050505',  
+                            gold: '#C5A059',   
+                            silver: '#C0C0C0', 
+                            sand: '#F5F2EB',   
                             stone: '#1c1917'   
                         }
                     },
@@ -42,15 +41,21 @@
                         'hero': "linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
                         'jazz': "url('https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
                         'wolf': "url('https://images.unsplash.com/photo-1535581652167-3d6b98c36cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
-                        'oltrepo': "url('https://images.unsplash.com/photo-1599557984770-55e14d45c556?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')"
+                        'vinyl': "url('https://images.unsplash.com/photo-1603048588665-791ca8aea617?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')"
                     },
                     animation: {
                         'scale-slow': 'scaleOut 20s linear infinite alternate',
+                        'spin-slow': 'spin 8s linear infinite',
+                        'pulse-bar': 'pulseHeight 1s ease-in-out infinite',
                     },
                     keyframes: {
                         scaleOut: {
                             '0%': { transform: 'scale(1)' },
                             '100%': { transform: 'scale(1.1)' },
+                        },
+                        pulseHeight: {
+                            '0%, 100%': { height: '30%' },
+                            '50%': { height: '100%' }
                         }
                     }
                 }
@@ -59,86 +64,51 @@
     </script>
 
     <style>
-        /* Smooth Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Custom Scrollbar */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.2, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #C5A059; }
 
-        /* Button Hover Effect */
-        .btn-slide {
-            position: relative;
-            overflow: hidden;
-            transition: color 0.4s;
-            z-index: 1;
-        }
-        .btn-slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: #C5A059;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: -1;
-        }
-        .btn-slide:hover::before {
-            transform: translateX(100%);
-        }
-        .btn-slide:hover {
-            color: #050505 !important;
-        }
+        .btn-slide { position: relative; overflow: hidden; transition: color 0.4s; z-index: 1; }
+        .btn-slide::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: #C5A059; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: -1; }
+        .btn-slide:hover::before { transform: translateX(100%); }
+        .btn-slide:hover { color: #050505 !important; }
 
-        /* Mobile Menu Transitions - CRITICAL FIX */
-        .mobile-menu-overlay {
-            transition: opacity 0.4s ease-in-out, visibility 0.4s;
-        }
-        .mobile-menu-overlay.open {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto; /* Ensures clicks work */
-        }
-        .mobile-menu-overlay.closed {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none; /* Ensures clicks pass through when closed */
-        }
+        .mobile-menu-overlay { transition: opacity 0.4s ease-in-out, visibility 0.4s; }
+        .mobile-menu-overlay.open { opacity: 1; visibility: visible; pointer-events: auto; }
+        .mobile-menu-overlay.closed { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        /* Text Stroke */
-        .text-stroke {
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
-            color: transparent;
-        }
+        .mood-card { transition: all 0.3s ease; }
+        .mood-card:hover { transform: translateY(-5px); border-color: #C5A059; }
+        .mood-card.selected { background-color: #C5A059; border-color: #C5A059; color: black; }
+        .mood-card.selected h3, .mood-card.selected i, .mood-card.selected p { color: black !important; }
+
+        /* Audio Visualizer Bars */
+        .bar { width: 4px; background: #C5A059; border-radius: 2px; height: 30%; }
+        .playing .bar { animation: pulseHeight 0.8s ease-in-out infinite; }
+        .playing .bar:nth-child(2) { animation-delay: 0.1s; }
+        .playing .bar:nth-child(3) { animation-delay: 0.2s; }
+        .playing .bar:nth-child(4) { animation-delay: 0.3s; }
     </style>
 </head>
 <body class="font-body text-brand-black bg-brand-sand antialiased overflow-x-hidden selection:bg-brand-gold selection:text-brand-black">
 
+    <!-- AUDIO ELEMENT (Hidden) -->
+    <audio id="audio-player">
+        <source src="" type="audio/mp3">
+        Il tuo browser non supporta l'audio.
+    </audio>
+
     <!-- AGE GATE -->
     <div id="age-gate" class="fixed inset-0 z-[100] bg-black flex items-center justify-center transition-opacity duration-700">
         <div class="text-center p-8 w-full max-w-md border border-brand-gold/20 relative">
-            <!-- Decorative Corners -->
             <div class="absolute top-0 left-0 w-4 h-4 border-t border-l border-brand-gold"></div>
             <div class="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-brand-gold"></div>
-
             <h1 class="font-display text-4xl text-white mb-2 tracking-widest">GERMANI TERZI</h1>
             <p class="text-brand-gold text-xs tracking-[0.3em] uppercase mb-10">Oltrepò Pavese</p>
-            
-            <p class="text-gray-400 font-light text-sm mb-10 leading-relaxed">
-                L'accesso a questo sito è riservato a chi ha raggiunto l'età legale per il consumo di bevande alcoliche.
-            </p>
-            
+            <p class="text-gray-400 font-light text-sm mb-10">L'accesso è riservato ai maggiorenni.</p>
             <button onclick="enterSite()" class="group relative px-10 py-4 bg-transparent border border-brand-gold text-brand-gold overflow-hidden transition-all duration-300 cursor-pointer">
                 <span class="absolute inset-0 w-full h-full bg-brand-gold transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
                 <span class="relative font-bold uppercase tracking-widest text-xs z-10 group-hover:text-black">Entra</span>
@@ -149,186 +119,193 @@
     <!-- NAVBAR -->
     <nav class="fixed w-full z-50 top-0 left-0 transition-all duration-300" id="navbar">
         <div class="max-w-screen-2xl mx-auto px-6 py-4 md:py-6 flex justify-between items-center relative z-50">
-            <!-- Logo -->
             <a href="#" class="font-display text-2xl font-bold tracking-wide flex items-center gap-3 text-white mix-blend-difference z-50">
-                <i class="ph-fill ph-wine text-brand-gold"></i>
-                <span class="tracking-[0.15em]">GERMANI TERZI</span>
+                <i class="ph-fill ph-wine text-brand-gold"></i><span class="tracking-[0.15em]">GERMANI TERZI</span>
             </a>
-
-            <!-- Desktop Links -->
             <div class="hidden md:flex items-center gap-10 text-xs font-bold uppercase tracking-widest text-white/90 mix-blend-difference">
-                <a href="#vini" class="hover:text-brand-gold transition-colors relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-px after:bg-brand-gold after:transition-all hover:after:w-full">Collezione</a>
-                <a href="#territorio" class="hover:text-brand-gold transition-colors relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-px after:bg-brand-gold after:transition-all hover:after:w-full">Oltrepò</a>
-                <a href="#experience" class="hover:text-brand-gold transition-colors relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-px after:bg-brand-gold after:transition-all hover:after:w-full">Visite</a>
+                <a href="#vini" class="hover:text-brand-gold transition-colors">Collezione</a>
+                <a href="#mood" class="hover:text-brand-gold transition-colors text-brand-gold">Find Your Rhythm</a>
+                <a href="#territorio" class="hover:text-brand-gold transition-colors">Oltrepò</a>
+                <a href="#contact" class="hover:text-brand-gold transition-colors">Contatti</a>
             </div>
-
-            <!-- Hamburger Button (Visible on Mobile) -->
             <button id="menu-btn" onclick="toggleMenu()" class="md:hidden relative z-[60] text-white focus:outline-none mix-blend-difference p-2">
                 <i id="menu-icon" class="ph ph-list text-3xl transition-transform duration-300"></i>
             </button>
         </div>
     </nav>
 
-    <!-- MOBILE MENU OVERLAY -->
-    <!-- FIX: Added z-40 and explicit pointer-events classes in CSS -->
+    <!-- MOBILE MENU -->
     <div id="mobile-menu" class="mobile-menu-overlay closed fixed inset-0 bg-brand-black z-40 flex flex-col items-center justify-center space-y-8 text-center p-6 h-screen w-screen">
-        <!-- Background Texture -->
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none"></div>
-        
-        <!-- Menu Items with relative z-10 to ensure clickability over background -->
-        <a href="#home" onclick="toggleMenu()" class="relative z-10 font-display text-4xl text-white hover:text-brand-gold transition-colors cursor-pointer block p-2">Home</a>
-        <a href="#vini" onclick="toggleMenu()" class="relative z-10 font-display text-4xl text-white hover:text-brand-gold transition-colors cursor-pointer block p-2">Vini</a>
-        <a href="#territorio" onclick="toggleMenu()" class="relative z-10 font-display text-4xl text-white hover:text-brand-gold transition-colors cursor-pointer block p-2">Territorio</a>
-        <a href="#experience" onclick="toggleMenu()" class="relative z-10 font-display text-4xl text-white hover:text-brand-gold transition-colors cursor-pointer block p-2">Degustazioni</a>
-        
-        <a href="#contact" onclick="toggleMenu()" class="relative z-10 text-brand-gold font-body text-sm uppercase tracking-widest border border-brand-gold px-8 py-3 mt-8 hover:bg-brand-gold hover:text-black transition-colors cursor-pointer">Contatti</a>
+        <a href="#vini" onclick="toggleMenu()" class="relative z-10 font-display text-4xl text-white hover:text-brand-gold cursor-pointer block p-2">Vini</a>
+        <a href="#mood" onclick="toggleMenu()" class="relative z-10 font-display text-4xl text-brand-gold hover:text-white cursor-pointer block p-2">Mood</a>
+        <a href="#territorio" onclick="toggleMenu()" class="relative z-10 font-display text-4xl text-white hover:text-brand-gold cursor-pointer block p-2">Territorio</a>
+        <a href="#contact" onclick="toggleMenu()" class="relative z-10 text-brand-gold font-body text-sm uppercase tracking-widest border border-brand-gold px-8 py-3 mt-8 hover:bg-brand-gold hover:text-black cursor-pointer">Contatti</a>
     </div>
 
     <!-- HERO SECTION -->
     <header id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
-        <!-- Background with Parallax Scale -->
         <div class="absolute inset-0 bg-hero bg-cover bg-center animate-scale-slow"></div>
-        
         <div class="relative z-10 text-center px-6 max-w-5xl">
-            <p class="text-brand-gold font-bold uppercase tracking-[0.4em] text-xs md:text-sm mb-6 reveal active delay-100">
-                Eccellenza Italiana
-            </p>
-            <h1 class="font-display text-5xl md:text-7xl lg:text-9xl text-white mb-6 leading-none reveal active delay-200">
-                L'Anima del<br>
-                <span class="italic font-serif text-white/90">Vino</span>
-            </h1>
+            <p class="text-brand-gold font-bold uppercase tracking-[0.4em] text-xs md:text-sm mb-6 reveal active delay-100">Eccellenza Italiana</p>
+            <h1 class="font-display text-5xl md:text-7xl lg:text-9xl text-white mb-6 leading-none reveal active delay-200">L'Anima del<br><span class="italic font-serif text-white/90">Vino</span></h1>
             <div class="h-px w-24 bg-brand-gold mx-auto mb-8 reveal active delay-300"></div>
-            <p class="text-gray-200 text-sm md:text-lg max-w-lg mx-auto font-light leading-relaxed mb-10 reveal active delay-300">
-                Dal cuore dell'Oltrepò Pavese. <br>
-                Dove il ritmo del jazz incontra il silenzio dei boschi.
-            </p>
-            
-            <a href="#vini" class="inline-block border border-white/30 bg-white/5 backdrop-blur-sm text-white px-8 py-4 uppercase text-xs font-bold tracking-widest hover:bg-brand-gold hover:border-brand-gold hover:text-brand-black transition-all duration-300 reveal active delay-500">
-                Scopri la Collezione
-            </a>
-        </div>
-
-        <!-- Scroll Down -->
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce opacity-50">
-            <i class="ph ph-arrow-down text-2xl"></i>
+            <a href="#vini" class="inline-block border border-white/30 bg-white/5 backdrop-blur-sm text-white px-8 py-4 uppercase text-xs font-bold tracking-widest hover:bg-brand-gold hover:border-brand-gold hover:text-brand-black transition-all duration-300 reveal active delay-500">Scopri la Collezione</a>
         </div>
     </header>
 
-    <!-- DR BLUES SECTION (Jazz/Burgundy) -->
+    <!-- DR BLUES SECTION -->
     <section id="vini" class="bg-brand-wineDark text-white relative overflow-hidden">
         <div class="grid md:grid-cols-2 min-h-screen">
-            <!-- Visual -->
             <div class="relative min-h-[50vh] md:h-full order-1 md:order-2 overflow-hidden group">
                 <div class="absolute inset-0 bg-jazz bg-cover bg-center transition-transform duration-[2s] group-hover:scale-110"></div>
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-wineDark via-brand-wine/40 to-transparent mix-blend-multiply"></div>
-                
-                <!-- Floating Element -->
                 <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <h2 class="font-display text-[15vw] md:text-[10vw] text-white/5 font-bold select-none rotate-90 md:rotate-0">BLUES</h2>
                 </div>
             </div>
-
-            <!-- Content -->
             <div class="relative z-10 p-10 md:p-24 flex flex-col justify-center order-2 md:order-1 bg-brand-wineDark">
                 <div class="reveal">
-                    <div class="flex items-center gap-4 mb-6">
-                        <span class="h-px w-10 bg-brand-gold"></span>
-                        <span class="text-brand-gold uppercase tracking-[0.3em] text-xs font-bold">Pinot Nero</span>
-                    </div>
-                    
+                    <span class="text-brand-gold uppercase tracking-[0.3em] text-xs font-bold block mb-2">Pinot Nero</span>
                     <h2 class="font-display text-5xl md:text-7xl mb-4 text-white">Dr. Blues</h2>
-                    <h3 class="font-serif italic text-2xl text-white/60 mb-8">"Rhythm in a Bottle"</h3>
-                    
                     <p class="text-gray-300 font-light leading-relaxed mb-10 text-justify max-w-md border-l-2 border-brand-wine pl-6">
                         Dedicato ai giovani e agli spiriti liberi. Dr. Blues è un Pinot Nero che suona note vibranti di frutti di bosco e spezie. 
-                        L'etichetta <strong>Burgundy</strong> con il sassofonista jazz incarna l'eleganza informale e il ritmo travolgente di questo vino.
                     </p>
-
-                    <ul class="grid grid-cols-2 gap-y-6 gap-x-10 mb-12 text-sm">
-                        <li>
-                            <span class="block text-white/40 uppercase text-[10px] tracking-wider mb-1">Colore</span>
-                            <span class="font-display text-lg">Rosso Rubino</span>
-                        </li>
-                        <li>
-                            <span class="block text-white/40 uppercase text-[10px] tracking-wider mb-1">Profumo</span>
-                            <span class="font-display text-lg">Ribes & Jazz</span>
-                        </li>
-                        <li>
-                            <span class="block text-white/40 uppercase text-[10px] tracking-wider mb-1">Temperatura</span>
-                            <span class="font-display text-lg">16° - 18° C</span>
-                        </li>
-                        <li>
-                            <span class="block text-white/40 uppercase text-[10px] tracking-wider mb-1">Abbinamento</span>
-                            <span class="font-display text-lg">Carni & Blues</span>
-                        </li>
-                    </ul>
-
-                    <button class="btn-slide border border-brand-gold text-brand-gold px-8 py-3 uppercase text-xs font-bold tracking-widest cursor-pointer">
-                        Acquista Dr. Blues
-                    </button>
+                    <button class="btn-slide border border-brand-gold text-brand-gold px-8 py-3 uppercase text-xs font-bold tracking-widest cursor-pointer">Acquista Dr. Blues</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SILVIS SECTION (Wolf/Black&White) -->
+    <!-- SILVIS SECTION -->
     <section class="bg-brand-black text-white relative overflow-hidden border-t border-white/10">
         <div class="grid md:grid-cols-2 min-h-screen">
-            <!-- Visual -->
             <div class="relative min-h-[50vh] md:h-full overflow-hidden group">
                 <div class="absolute inset-0 bg-wolf bg-cover bg-center transition-transform duration-[2s] group-hover:scale-110 grayscale filter contrast-125"></div>
                 <div class="absolute inset-0 bg-black/40"></div>
-                
-                <!-- Floating Element -->
                 <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <h2 class="font-display text-[15vw] md:text-[10vw] text-white/10 font-bold select-none">SILVIS</h2>
                 </div>
             </div>
-
-            <!-- Content -->
             <div class="relative z-10 p-10 md:p-24 flex flex-col justify-center bg-brand-stone">
                 <div class="reveal">
-                    <div class="flex items-center gap-4 mb-6">
-                        <span class="h-px w-10 bg-brand-silver"></span>
-                        <span class="text-brand-silver uppercase tracking-[0.3em] text-xs font-bold">Rosso Barricato</span>
-                    </div>
-                    
+                    <span class="text-brand-silver uppercase tracking-[0.3em] text-xs font-bold block mb-2">Rosso Barricato</span>
                     <h2 class="font-display text-5xl md:text-7xl mb-4 text-white">Silvis</h2>
-                    <h3 class="font-serif italic text-2xl text-gray-400 mb-8">"The Wild Nature"</h3>
-                    
                     <p class="text-gray-400 font-light leading-relaxed mb-10 text-justify max-w-md border-l-2 border-brand-silver pl-6">
                         Il fascino del mistero. Silvis è un rosso barricato potente, strutturato e profondo. 
-                        L'etichetta in <strong>Bianco e Nero</strong> raffigura il lupo, simbolo di libertà e forza, custode silenzioso dei nostri vigneti più antichi.
                     </p>
-
-                    <ul class="grid grid-cols-2 gap-y-6 gap-x-10 mb-12 text-sm">
-                        <li>
-                            <span class="block text-gray-600 uppercase text-[10px] tracking-wider mb-1">Colore</span>
-                            <span class="font-display text-lg text-gray-200">Rosso Granato</span>
-                        </li>
-                        <li>
-                            <span class="block text-gray-600 uppercase text-[10px] tracking-wider mb-1">Affinamento</span>
-                            <span class="font-display text-lg text-gray-200">Barrique Rovere</span>
-                        </li>
-                        <li>
-                            <span class="block text-gray-600 uppercase text-[10px] tracking-wider mb-1">Carattere</span>
-                            <span class="font-display text-lg text-gray-200">Austero</span>
-                        </li>
-                        <li>
-                            <span class="block text-gray-600 uppercase text-[10px] tracking-wider mb-1">Abbinamento</span>
-                            <span class="font-display text-lg text-gray-200">Selvaggina</span>
-                        </li>
-                    </ul>
-
-                    <button class="btn-slide border border-gray-400 text-gray-300 px-8 py-3 uppercase text-xs font-bold tracking-widest hover:border-brand-silver hover:text-brand-silver cursor-pointer">
-                        Acquista Silvis
-                    </button>
+                    <button class="btn-slide border border-gray-400 text-gray-300 px-8 py-3 uppercase text-xs font-bold tracking-widest hover:border-brand-silver hover:text-brand-silver cursor-pointer">Acquista Silvis</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- TERRITORIO PARALLAX -->
+    <!-- MOOD SOMMELIER (GAMIFICATION & MUSIC) -->
+    <section id="mood" class="py-24 bg-brand-stone text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-brand-wine rounded-full filter blur-[100px] opacity-20"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-brand-gold rounded-full filter blur-[100px] opacity-10"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <span class="text-brand-gold font-bold uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-2">
+                    <i class="ph-fill ph-spotify-logo text-lg"></i> Mood Sommelier
+                </span>
+                <h2 class="font-display text-4xl md:text-5xl mt-4 mb-6">Find Your Rhythm</h2>
+                <p class="text-gray-400 max-w-xl mx-auto font-light">
+                    Scegli il tuo vibe attuale. Ascolta un'anteprima sonora e scopri il vino perfetto.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+                
+                <!-- Mood Selector Grid -->
+                <div class="grid grid-cols-2 gap-4 reveal">
+                    <!-- Cliccando qui parte la musica -->
+                    <button onclick="setMood('chill')" class="mood-card p-6 border border-white/10 bg-white/5 rounded-xl text-left group cursor-pointer">
+                        <i class="ph ph-couch text-3xl text-brand-gold mb-3 group-hover:scale-110 transition-transform block"></i>
+                        <h3 class="font-display text-xl mb-1">Chill & Relax</h3>
+                        <p class="text-xs text-gray-500">Solo sul divano, libro o serie TV.</p>
+                    </button>
+                    
+                    <button onclick="setMood('party')" class="mood-card p-6 border border-white/10 bg-white/5 rounded-xl text-left group cursor-pointer">
+                        <i class="ph ph-speaker-high text-3xl text-brand-wine mb-3 group-hover:scale-110 transition-transform block"></i>
+                        <h3 class="font-display text-xl mb-1">House Party</h3>
+                        <p class="text-xs text-gray-500">Amici, musica alta e risate.</p>
+                    </button>
+
+                    <button onclick="setMood('dinner')" class="mood-card p-6 border border-white/10 bg-white/5 rounded-xl text-left group cursor-pointer">
+                        <i class="ph ph-heart text-3xl text-brand-gold mb-3 group-hover:scale-110 transition-transform block"></i>
+                        <h3 class="font-display text-xl mb-1">Date Night</h3>
+                        <p class="text-xs text-gray-500">Cena elegante a lume di candela.</p>
+                    </button>
+
+                    <button onclick="setMood('wild')" class="mood-card p-6 border border-white/10 bg-white/5 rounded-xl text-left group cursor-pointer">
+                        <i class="ph ph-fire text-3xl text-brand-wine mb-3 group-hover:scale-110 transition-transform block"></i>
+                        <h3 class="font-display text-xl mb-1">Into the Wild</h3>
+                        <p class="text-xs text-gray-500">Notte fuori, avventura, energia.</p>
+                    </button>
+                </div>
+
+                <!-- Music Player UI -->
+                <div id="result-card" class="bg-black/50 backdrop-blur-md border border-white/10 rounded-2xl p-8 relative overflow-hidden transition-all duration-500 opacity-0 translate-y-10">
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-wine/20 to-brand-gold/10"></div>
+                    
+                    <div class="relative z-10 flex flex-col h-full justify-between min-h-[400px]">
+                        <!-- Visualizer Top -->
+                        <div class="flex justify-between items-start">
+                            <div class="flex items-center gap-3">
+                                <div id="visualizer" class="h-6 flex items-end gap-1">
+                                    <div class="bar"></div>
+                                    <div class="bar"></div>
+                                    <div class="bar"></div>
+                                    <div class="bar"></div>
+                                </div>
+                                <span id="status-text" class="text-xs uppercase tracking-widest text-gray-400">Ready to play</span>
+                            </div>
+                            <i class="ph ph-share-network text-xl text-white cursor-pointer hover:text-brand-gold"></i>
+                        </div>
+
+                        <!-- Player Main -->
+                        <div class="flex flex-col items-center text-center mt-8">
+                            <div class="w-48 h-48 rounded-full border-4 border-white/10 relative mb-6 shadow-2xl overflow-hidden">
+                                <img id="match-img" src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 flex items-center justify-center bg-black/30">
+                                    <div class="w-8 h-8 bg-brand-gold rounded-full border-2 border-black"></div>
+                                </div>
+                            </div>
+                            
+                            <h3 id="match-wine" class="font-display text-3xl text-white mb-2">Dr. Blues</h3>
+                            <p id="match-desc" class="text-brand-gold text-sm uppercase tracking-widest mb-4">Pinot Nero & Jazz Vibes</p>
+                            
+                            <!-- Progress Bar (Fake but reactive) -->
+                            <div class="w-full bg-white/10 h-1 rounded-full mb-6 overflow-hidden">
+                                <div id="progress-bar" class="bg-brand-gold w-0 h-full transition-all duration-1000"></div>
+                            </div>
+
+                            <!-- Controls -->
+                            <div class="flex items-center gap-8 text-2xl mb-6">
+                                <i class="ph ph-skip-back cursor-pointer hover:text-brand-gold text-gray-500"></i>
+                                
+                                <!-- Play/Pause Toggle -->
+                                <div onclick="togglePlay()" class="w-14 h-14 bg-white text-brand-black rounded-full flex items-center justify-center hover:scale-105 transition-transform cursor-pointer shadow-lg shadow-brand-gold/20">
+                                    <i id="play-icon" class="ph-fill ph-play ml-1 text-xl"></i>
+                                </div>
+                                
+                                <i class="ph ph-skip-forward cursor-pointer hover:text-brand-gold text-gray-500"></i>
+                            </div>
+                            
+                            <p id="match-song" class="text-gray-400 text-xs italic">Track: "Cool Jazz Demo"</p>
+                        </div>
+
+                        <button class="w-full bg-brand-gold text-black py-3 rounded-lg font-bold uppercase text-xs tracking-widest mt-6 hover:bg-white transition-colors">
+                            Compra questo Vibe
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TERRITORIO PARALLAX (RESTORATA) -->
     <section id="territorio" class="relative py-40 flex items-center justify-center bg-fixed bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1625505826533-5c80aca7d157?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
         <div class="absolute inset-0 bg-white/90 backdrop-blur-[2px]"></div>
         
@@ -367,56 +344,19 @@
     <footer id="contact" class="bg-brand-black text-white pt-24 pb-12 border-t border-gray-900">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between gap-16 mb-20">
-                
-                <!-- Brand -->
                 <div class="md:w-1/3">
                     <h2 class="font-display text-3xl mb-6 tracking-wider">GERMANI TERZI</h2>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-8">
-                        Vini che raccontano storie. <br>
-                        Dall'Oltrepò Pavese al mondo.
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand-gold hover:text-black hover:border-brand-gold transition-all duration-300">
-                            <i class="ph ph-instagram-logo text-xl"></i>
-                        </a>
-                        <a href="#" class="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand-gold hover:text-black hover:border-brand-gold transition-all duration-300">
-                            <i class="ph ph-facebook-logo text-xl"></i>
-                        </a>
-                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8">Vini che raccontano storie.</p>
                 </div>
-                
-                <!-- Quick Links -->
                 <div class="md:w-1/3 flex gap-12 text-sm text-gray-400 uppercase tracking-wider">
                     <ul class="space-y-4">
-                        <li><a href="#home" class="hover:text-brand-gold transition-colors">Home</a></li>
                         <li><a href="#vini" class="hover:text-brand-gold transition-colors">Dr Blues</a></li>
                         <li><a href="#vini" class="hover:text-brand-gold transition-colors">Silvis</a></li>
                     </ul>
-                    <ul class="space-y-4">
-                        <li><a href="#experience" class="hover:text-brand-gold transition-colors">Visite</a></li>
-                        <li><a href="#" class="hover:text-brand-gold transition-colors">Shop</a></li>
-                        <li><a href="#" class="hover:text-brand-gold transition-colors">Press</a></li>
-                    </ul>
-                </div>
-
-                <!-- Newsletter -->
-                <div class="md:w-1/3">
-                    <h3 class="font-display text-lg mb-6 text-brand-gold">Newsletter</h3>
-                    <form class="flex flex-col gap-4">
-                        <input type="email" placeholder="La tua email" class="bg-gray-900/50 border border-gray-800 p-4 text-white text-sm outline-none focus:border-brand-gold transition-colors">
-                        <button class="bg-white text-black py-4 px-8 uppercase text-xs font-bold tracking-widest hover:bg-brand-gold transition-colors cursor-pointer">
-                            Iscriviti
-                        </button>
-                    </form>
                 </div>
             </div>
-            
             <div class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 uppercase tracking-wider">
-                <p>&copy; 2024 Germani Terzi. P.IVA 12345678901</p>
-                <div class="flex gap-6 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-gray-400">Privacy Policy</a>
-                    <a href="#" class="hover:text-gray-400">Cookie Policy</a>
-                </div>
+                <p>&copy; 2024 Germani Terzi.</p>
             </div>
         </div>
     </footer>
@@ -427,10 +367,10 @@
             const gate = document.getElementById('age-gate');
             const body = document.body;
             gate.style.opacity = '0';
-            gate.style.pointerEvents = 'none'; // Prevent interaction during fade out
+            gate.style.pointerEvents = 'none';
             setTimeout(() => {
                 gate.style.display = 'none';
-                body.style.overflow = 'auto'; // Re-enable scroll
+                body.style.overflow = 'auto';
             }, 700);
         }
 
@@ -439,31 +379,23 @@
             const menu = document.getElementById('mobile-menu');
             const icon = document.getElementById('menu-icon');
             const body = document.body;
-            
             if (menu.classList.contains('closed')) {
-                // Open Menu
-                menu.classList.remove('closed');
-                menu.classList.add('open');
-                icon.classList.remove('ph-list');
-                icon.classList.add('ph-x');
-                body.style.overflow = 'hidden'; // Lock scroll
+                menu.classList.remove('closed'); menu.classList.add('open');
+                icon.classList.remove('ph-list'); icon.classList.add('ph-x');
+                body.style.overflow = 'hidden';
             } else {
-                // Close Menu
-                menu.classList.remove('open');
-                menu.classList.add('closed');
-                icon.classList.remove('ph-x');
-                icon.classList.add('ph-list');
-                body.style.overflow = 'auto'; // Unlock scroll
+                menu.classList.remove('open'); menu.classList.add('closed');
+                icon.classList.remove('ph-x'); icon.classList.add('ph-list');
+                body.style.overflow = 'auto';
             }
         }
 
-        // Navbar Scroll Effect
+        // Navbar Scroll
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
-                navbar.classList.add('bg-black/80', 'backdrop-blur-md', 'shadow-lg');
+                navbar.classList.add('bg-black/80', 'backdrop-blur-md', 'shadow-lg', 'py-4');
                 navbar.classList.remove('py-6');
-                navbar.classList.add('py-4');
             } else {
                 navbar.classList.remove('bg-black/80', 'backdrop-blur-md', 'shadow-lg', 'py-4');
                 navbar.classList.add('py-6');
@@ -483,8 +415,115 @@
             }
         }
         window.addEventListener("scroll", reveal);
-        // Trigger on load after short delay
         setTimeout(reveal, 100);
+
+        // --- MUSIC PLAYER LOGIC ---
+        
+        // Demo royalty free tracks
+        const moods = {
+            'chill': {
+                wine: 'Dr. Blues',
+                desc: 'Pinot Nero & Soft Vibes',
+                song: 'Track: "Jazz Lounge Demo"',
+                img: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' // Long Jazz track
+            },
+            'party': {
+                wine: 'Dr. Blues',
+                desc: 'Ritmo & Bollicine',
+                song: 'Track: "Funky Groove Demo"',
+                img: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' // Pop/Rock track
+            },
+            'dinner': {
+                wine: 'Silvis',
+                desc: 'Rosso Riserva & Intimità',
+                song: 'Track: "Piano Dreams Demo"',
+                img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3' // Slow Piano
+            },
+            'wild': {
+                wine: 'Silvis',
+                desc: 'Barricato & Avventura',
+                song: 'Track: "Deep Bass Demo"',
+                img: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' // Intense
+            }
+        };
+
+        const audioPlayer = document.getElementById('audio-player');
+        const playIcon = document.getElementById('play-icon');
+        const visualizer = document.getElementById('visualizer');
+        const albumImg = document.getElementById('match-img');
+        const progressBar = document.getElementById('progress-bar');
+        let isPlaying = false;
+
+        function setMood(moodKey) {
+            const data = moods[moodKey];
+            const resultCard = document.getElementById('result-card');
+            
+            // Highlight Button
+            document.querySelectorAll('.mood-card').forEach(card => card.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+
+            // UI Update
+            document.getElementById('match-wine').innerText = data.wine;
+            document.getElementById('match-desc').innerText = data.desc;
+            document.getElementById('match-song').innerText = data.song;
+            albumImg.src = data.img;
+            
+            // Audio Source Update
+            audioPlayer.src = data.audio;
+            
+            // Animation Reset
+            resultCard.style.opacity = '0';
+            resultCard.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                resultCard.style.opacity = '1';
+                resultCard.style.transform = 'translateY(0)';
+            }, 100);
+
+            // Auto Play logic (since user clicked)
+            playAudio();
+        }
+
+        function togglePlay() {
+            if (audioPlayer.paused) {
+                playAudio();
+            } else {
+                pauseAudio();
+            }
+        }
+
+        function playAudio() {
+            audioPlayer.play().then(() => {
+                isPlaying = true;
+                playIcon.classList.remove('ph-play');
+                playIcon.classList.add('ph-pause');
+                visualizer.classList.add('playing');
+                albumImg.classList.add('animate-spin-slow'); // Spin Record
+                document.getElementById('status-text').innerText = "Now Playing";
+                document.getElementById('status-text').classList.add('text-brand-gold');
+            }).catch(e => console.log("Audio play failed (interaction needed)", e));
+        }
+
+        function pauseAudio() {
+            audioPlayer.pause();
+            isPlaying = false;
+            playIcon.classList.remove('ph-pause');
+            playIcon.classList.add('ph-play');
+            visualizer.classList.remove('playing');
+            albumImg.classList.remove('animate-spin-slow');
+            document.getElementById('status-text').innerText = "Paused";
+            document.getElementById('status-text').classList.remove('text-brand-gold');
+        }
+
+        // Progress Bar Simulation
+        audioPlayer.addEventListener('timeupdate', () => {
+            const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            progressBar.style.width = percent + '%';
+        });
+
     </script>
 </body>
 </html>
