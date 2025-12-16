@@ -40,17 +40,17 @@
                     },
                     backgroundImage: {
                         'hero': "linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
-                        'jazz': "url('https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')", /* Saxophone vibe */
-                        'wolf': "url('https://images.unsplash.com/photo-1535581652167-3d6b98c36cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')", /* Wolf/Forest vibe */
-                        'oltrepo': "url('https://images.unsplash.com/photo-1599557984770-55e14d45c556?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')" /* Hills */
+                        'jazz': "url('https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                        'wolf': "url('https://images.unsplash.com/photo-1535581652167-3d6b98c36cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                        'oltrepo': "url('https://images.unsplash.com/photo-1599557984770-55e14d45c556?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')"
                     },
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
+                        'scale-slow': 'scaleOut 20s linear infinite alternate',
                     },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
+                        scaleOut: {
+                            '0%': { transform: 'scale(1)' },
+                            '100%': { transform: 'scale(1.1)' },
                         }
                     }
                 }
@@ -101,20 +101,22 @@
             color: #050505 !important;
         }
 
-        /* Mobile Menu Transitions */
+        /* Mobile Menu Transitions - CRITICAL FIX */
         .mobile-menu-overlay {
             transition: opacity 0.4s ease-in-out, visibility 0.4s;
         }
         .mobile-menu-overlay.open {
             opacity: 1;
             visibility: visible;
+            pointer-events: auto; /* Ensures clicks work */
         }
         .mobile-menu-overlay.closed {
             opacity: 0;
             visibility: hidden;
+            pointer-events: none; /* Ensures clicks pass through when closed */
         }
 
-        /* Text Stroke for Artistic Effect */
+        /* Text Stroke */
         .text-stroke {
             -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
             color: transparent;
@@ -124,7 +126,7 @@
 <body class="font-body text-brand-black bg-brand-sand antialiased overflow-x-hidden selection:bg-brand-gold selection:text-brand-black">
 
     <!-- AGE GATE -->
-    <div id="age-gate" class="fixed inset-0 z-[60] bg-black flex items-center justify-center transition-all duration-700">
+    <div id="age-gate" class="fixed inset-0 z-[100] bg-black flex items-center justify-center transition-opacity duration-700">
         <div class="text-center p-8 w-full max-w-md border border-brand-gold/20 relative">
             <!-- Decorative Corners -->
             <div class="absolute top-0 left-0 w-4 h-4 border-t border-l border-brand-gold"></div>
@@ -134,10 +136,10 @@
             <p class="text-brand-gold text-xs tracking-[0.3em] uppercase mb-10">Oltrepò Pavese</p>
             
             <p class="text-gray-400 font-light text-sm mb-10 leading-relaxed">
-                L'accesso a questo sito è riservato a chi ha raggiunto l'età legale per il consumo di bevande alcoliche nel proprio paese di residenza.
+                L'accesso a questo sito è riservato a chi ha raggiunto l'età legale per il consumo di bevande alcoliche.
             </p>
             
-            <button onclick="enterSite()" class="group relative px-10 py-4 bg-transparent border border-brand-gold text-brand-gold overflow-hidden transition-all duration-300">
+            <button onclick="enterSite()" class="group relative px-10 py-4 bg-transparent border border-brand-gold text-brand-gold overflow-hidden transition-all duration-300 cursor-pointer">
                 <span class="absolute inset-0 w-full h-full bg-brand-gold transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
                 <span class="relative font-bold uppercase tracking-widest text-xs z-10 group-hover:text-black">Entra</span>
             </button>
@@ -146,9 +148,9 @@
 
     <!-- NAVBAR -->
     <nav class="fixed w-full z-50 top-0 left-0 transition-all duration-300" id="navbar">
-        <div class="max-w-screen-2xl mx-auto px-6 py-4 md:py-6 flex justify-between items-center">
+        <div class="max-w-screen-2xl mx-auto px-6 py-4 md:py-6 flex justify-between items-center relative z-50">
             <!-- Logo -->
-            <a href="#" class="relative z-50 font-display text-2xl font-bold tracking-wide flex items-center gap-3 text-white mix-blend-difference">
+            <a href="#" class="font-display text-2xl font-bold tracking-wide flex items-center gap-3 text-white mix-blend-difference z-50">
                 <i class="ph-fill ph-wine text-brand-gold"></i>
                 <span class="tracking-[0.15em]">GERMANI TERZI</span>
             </a>
@@ -161,27 +163,31 @@
             </div>
 
             <!-- Hamburger Button (Visible on Mobile) -->
-            <button id="menu-btn" onclick="toggleMenu()" class="md:hidden relative z-50 text-white focus:outline-none mix-blend-difference">
+            <button id="menu-btn" onclick="toggleMenu()" class="md:hidden relative z-[60] text-white focus:outline-none mix-blend-difference p-2">
                 <i id="menu-icon" class="ph ph-list text-3xl transition-transform duration-300"></i>
             </button>
         </div>
     </nav>
 
     <!-- MOBILE MENU OVERLAY -->
-    <div id="mobile-menu" class="mobile-menu-overlay closed fixed inset-0 bg-brand-black z-40 flex flex-col items-center justify-center space-y-8 text-center p-6">
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+    <!-- FIX: Added z-40 and explicit pointer-events classes in CSS -->
+    <div id="mobile-menu" class="mobile-menu-overlay closed fixed inset-0 bg-brand-black z-40 flex flex-col items-center justify-center space-y-8 text-center p-6 h-screen w-screen">
+        <!-- Background Texture -->
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none"></div>
         
-        <a href="#home" onclick="toggleMenu()" class="font-display text-4xl text-white hover:text-brand-gold transition-colors">Home</a>
-        <a href="#vini" onclick="toggleMenu()" class="font-display text-4xl text-white hover:text-brand-gold transition-colors">Vini</a>
-        <a href="#territorio" onclick="toggleMenu()" class="font-display text-4xl text-white hover:text-brand-gold transition-colors">Territorio</a>
-        <a href="#experience" onclick="toggleMenu()" class="font-display text-4xl text-white hover:text-brand-gold transition-colors">Degustazioni</a>
-        <a href="#contact" onclick="toggleMenu()" class="text-brand-gold font-body text-sm uppercase tracking-widest border border-brand-gold px-8 py-3 mt-8">Contatti</a>
+        <!-- Menu Items with relative z-10 to ensure clickability over background -->
+        <a href="#home" onclick="toggleMenu()" class="relative z-10 font-display text-4xl text-white hover:text-brand-gold transition-colors cursor-pointer block p-2">Home</a>
+        <a href="#vini" onclick="toggleMenu()" class="relative z-10 font-display text-4xl text-white hover:text-brand-gold transition-colors cursor-pointer block p-2">Vini</a>
+        <a href="#territorio" onclick="toggleMenu()" class="relative z-10 font-display text-4xl text-white hover:text-brand-gold transition-colors cursor-pointer block p-2">Territorio</a>
+        <a href="#experience" onclick="toggleMenu()" class="relative z-10 font-display text-4xl text-white hover:text-brand-gold transition-colors cursor-pointer block p-2">Degustazioni</a>
+        
+        <a href="#contact" onclick="toggleMenu()" class="relative z-10 text-brand-gold font-body text-sm uppercase tracking-widest border border-brand-gold px-8 py-3 mt-8 hover:bg-brand-gold hover:text-black transition-colors cursor-pointer">Contatti</a>
     </div>
 
     <!-- HERO SECTION -->
     <header id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
         <!-- Background with Parallax Scale -->
-        <div class="absolute inset-0 bg-hero bg-cover bg-center animate-[scaleOut_20s_linear_infinite_alternate]"></div>
+        <div class="absolute inset-0 bg-hero bg-cover bg-center animate-scale-slow"></div>
         
         <div class="relative z-10 text-center px-6 max-w-5xl">
             <p class="text-brand-gold font-bold uppercase tracking-[0.4em] text-xs md:text-sm mb-6 reveal active delay-100">
@@ -257,7 +263,7 @@
                         </li>
                     </ul>
 
-                    <button class="btn-slide border border-brand-gold text-brand-gold px-8 py-3 uppercase text-xs font-bold tracking-widest">
+                    <button class="btn-slide border border-brand-gold text-brand-gold px-8 py-3 uppercase text-xs font-bold tracking-widest cursor-pointer">
                         Acquista Dr. Blues
                     </button>
                 </div>
@@ -314,7 +320,7 @@
                         </li>
                     </ul>
 
-                    <button class="btn-slide border border-gray-400 text-gray-300 px-8 py-3 uppercase text-xs font-bold tracking-widest hover:border-brand-silver hover:text-brand-silver">
+                    <button class="btn-slide border border-gray-400 text-gray-300 px-8 py-3 uppercase text-xs font-bold tracking-widest hover:border-brand-silver hover:text-brand-silver cursor-pointer">
                         Acquista Silvis
                     </button>
                 </div>
@@ -398,7 +404,7 @@
                     <h3 class="font-display text-lg mb-6 text-brand-gold">Newsletter</h3>
                     <form class="flex flex-col gap-4">
                         <input type="email" placeholder="La tua email" class="bg-gray-900/50 border border-gray-800 p-4 text-white text-sm outline-none focus:border-brand-gold transition-colors">
-                        <button class="bg-white text-black py-4 px-8 uppercase text-xs font-bold tracking-widest hover:bg-brand-gold transition-colors">
+                        <button class="bg-white text-black py-4 px-8 uppercase text-xs font-bold tracking-widest hover:bg-brand-gold transition-colors cursor-pointer">
                             Iscriviti
                         </button>
                     </form>
@@ -421,6 +427,7 @@
             const gate = document.getElementById('age-gate');
             const body = document.body;
             gate.style.opacity = '0';
+            gate.style.pointerEvents = 'none'; // Prevent interaction during fade out
             setTimeout(() => {
                 gate.style.display = 'none';
                 body.style.overflow = 'auto'; // Re-enable scroll
@@ -476,7 +483,8 @@
             }
         }
         window.addEventListener("scroll", reveal);
-        reveal(); // Trigger on load
+        // Trigger on load after short delay
+        setTimeout(reveal, 100);
     </script>
 </body>
 </html>
